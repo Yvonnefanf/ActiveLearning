@@ -65,14 +65,18 @@ class CoreSetSampling(QueryMethod):
             embedding_model = Model(input=self.task_model.input, output=self.task_model.get_layer('softmax').input)
         else:
             # pytorch version
-            embedding_model = torch.nn.Sequential(*list(self.task_model.children())[:-1])
+            self.task_model.to(self.device)
+            self.task_model.eval()
+
+            embedding_model = self.task_model.feature
+            # embedding_model = torch.nn.Sequential(*list(self.task_model.children())[:-1])
         return embedding_model
 
     def get_embedding(self, trainset):
         embedding_model = self.get_embedding_model()
         loader = DataLoader(trainset, shuffle=False, **self.kwargs['loader_te_args'])
-        embedding_model.to(self.device)
-        embedding_model.eval()
+        # embedding_model.to(self.device)
+        # embedding_model.eval()
 
         train_num = len(trainset.targets)
         batch_size = self.kwargs['loader_te_args']['batch_size']
@@ -87,7 +91,6 @@ class CoreSetSampling(QueryMethod):
 
     def query(self, embedding, amount):
         labeled_idx = self.lb_idxs
-
         unlabeled_idx = get_unlabeled_idx(embedding.shape[0], labeled_idx)
 
         # use the learned representation for the k-greedy-center algorithm:

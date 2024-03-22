@@ -31,7 +31,7 @@ if __name__ == "__main__":
     GPU = hyperparameters.gpu
 
     now = time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time())) 
-    file_path = os.path.join("..", "..", "..", "DVI_data", "active_learning", "coreset", "resnet18", DATA_NAME)
+    file_path = os.path.join("..", "..", "..", "TrainingDynamic", "active_learning", "coreset", "resnet18", DATA_NAME)
     os.system("mkdir -p {}".format(file_path))
     sys.stdout = open(os.path.join(file_path, now+".txt"), "w")
 
