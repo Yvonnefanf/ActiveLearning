@@ -32,6 +32,7 @@ if __name__ == "__main__":
 
     now = time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time())) 
     file_path = os.path.join("..", "..", "..", "TrainingDynamic", "active_learning", "coreset", "resnet18", DATA_NAME)
+    
     os.system("mkdir -p {}".format(file_path))
     sys.stdout = open(os.path.join(file_path, now+".txt"), "w")
 
@@ -42,6 +43,7 @@ if __name__ == "__main__":
     args = args_pool[DATA_NAME]
 
     if SAVE:
+        
         save_datasets(METHOD, "resnet18", DATA_NAME, GPU, **args)
 
     # start experiment
@@ -69,9 +71,9 @@ if __name__ == "__main__":
     print('number of testing pool: {}'.format(n_test))
 
     # here the training handlers and testing handlers are different
-    train_dataset = torchvision.datasets.CIFAR10(root="..//data//CIFAR10", download=True, train=True, transform=args['transform_tr'])
-    test_dataset = torchvision.datasets.CIFAR10(root="..//data//CIFAR10", download=True, train=False, transform=args['transform_te'])
-    complete_dataset = torchvision.datasets.CIFAR10(root="..//data//CIFAR10", download=True, train=True, transform=args['transform_te'])
+    train_dataset = torchvision.datasets.CIFAR10(root="../data/CIFAR10", download=True, train=True, transform=args['transform_tr'])
+    test_dataset = torchvision.datasets.CIFAR10(root="../data/CIFAR10", download=True, train=False, transform=args['transform_te'])
+    complete_dataset = torchvision.datasets.CIFAR10(root="../data/CIFAR10", download=True, train=True, transform=args['transform_te'])
 
     strategy = CoreSetSampling(task_model, task_model_type, n_pool, 512, idxs_lb, DATA_NAME, "resnet18", gpu=GPU, **args)
 
@@ -122,7 +124,7 @@ if __name__ == "__main__":
         print('Accuracy {:.3f}'.format(100*acc[rd]))
 
         if SAVE:
-            save_task_model(rd, strategy)
+            save_task_model(rd, strategy,file_path)
 
     # print final results for each round
     print(type(strategy).__name__)

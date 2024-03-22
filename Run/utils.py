@@ -81,9 +81,9 @@ def save_datasets(strategy_n, model_n, dataset_n, gpu=None, **kwargs):
     torch.save(testing_labels, testing_labels_path)
 
 
-def save_task_model(n_epoch, strategy):
+def save_task_model(n_epoch, strategy,file_path):
     # save subject model and index
-    working_path = os.path.join("..", "..", "..", "DVI_data", "active_learning", strategy.strategy_name, strategy.model_name, strategy.dataset_name, "Model")
+    working_path = os.path.join(file_path,"Model" )
     os.system("mkdir -p {}".format(working_path))
     working_path = os.path.join(working_path, "Iteration_{}".format(n_epoch))
     os.system("mkdir -p {}".format(working_path))
