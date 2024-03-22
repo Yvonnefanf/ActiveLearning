@@ -6,8 +6,7 @@ import torchvision
 import time
 import json
 
-active_learning_path = "/home/xianglin/projects/git_space/ActiveLearning"
-sys.path.append(active_learning_path)
+sys.path.append('..')
 
 from utils import save_datasets, save_task_model, save_new_select
 from query_strategies.random import RandomSampling

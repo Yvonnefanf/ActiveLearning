@@ -7,12 +7,11 @@ import os
 import json
 import sys
 
-active_learning_path = "/home/xianglin/projects/git_space/ActiveLearning"
-sys.path.append(active_learning_path)
+sys.path.append('..')
 
 from utils import save_datasets, save_task_model, save_new_select
 # from models.resnet import ResNet18
-from model.resnet_ import resnet18
+from models.resnet_ import resnet18
 from query_strategies.coreset import CoreSetSampling
 from arguments import get_arguments
 from args_pool import args_pool

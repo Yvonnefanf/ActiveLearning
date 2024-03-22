@@ -26,8 +26,7 @@ import torchvision
 # Utils
 from tqdm import tqdm
 
-active_learning_path = "/home/xianglin/projects/git_space/ActiveLearning"
-sys.path.append(active_learning_path)
+sys.path.append('..')
 
 # Custom
 from models.LL4ALnet import ResNet18
